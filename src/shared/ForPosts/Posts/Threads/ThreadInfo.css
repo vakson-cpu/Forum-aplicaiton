@@ -1,0 +1,87 @@
+.Board{
+    padding: 0px;
+    min-height: 100%;
+}
+
+.Thread--Panel{
+    background-color:white;
+    color:black;
+    padding:15px;
+    flex-grow: 2;
+
+}
+
+.User--Information{
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 400px;
+
+}
+
+.Side--Info{
+    border: 5px ridge goldenrod;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    align-items: center;
+    background-color:rgb(0, 0, 0);
+
+}
+
+/* .User--Img{
+} */
+.Pic{
+    margin-top:15px;
+    width:100px;
+    height: 100px;
+    border-radius: 30px;
+    background-color:burlywood;
+}
+.User--Name{
+    font-size:14px;
+    text-align: center;
+    color:white;
+  
+}
+
+.PostComment--Area{
+    display: flex;
+    flex-direction: column;
+    
+
+}
+.CreateComment{
+    margin-top:20px;
+    height: 200px;
+    resize:none;
+}
+.Comment--Button{
+    width:200px;
+}
+
+
+
+
+.Thread--Footer{
+    text-align: right;
+}
+
+.Thread--Footer .fas{
+font-size: 18px;
+}
+
+.fas.fa-times-circle{
+    color:red;
+}
+
+
+.Spinner--Center{
+text-align: center;
+margin: auto;
+margin-top: 100px;
+}
+
+
+

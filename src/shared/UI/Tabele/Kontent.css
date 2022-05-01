@@ -1,0 +1,92 @@
+.white{
+    color:white;
+}
+
+.fab{
+    font-size: 30px;
+    
+}
+table tr {
+    height: 60px;
+}
+
+
+
+thead{
+    background-color: rgb(15, 49, 100);
+}
+.fa-map-marker{
+    color: rgb(59, 168, 240);
+    font-size: 20px;
+}
+.logo{
+    color:goldenrod;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 10px;
+}
+.small-text{
+
+    font-size: 1rem;
+    color:rgb(90, 209, 173);
+    border-bottom: 1px solid white;
+    width: 250px;
+    font-weight: none;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.small-text1{
+    text-align: left;
+    font-size: 0.86rem;
+    color:whitesmoke;
+    font-weight: none;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.bgBoja{
+    background-color: rgba(5, 20, 71, 0.57);
+    border: 1px solid darkgoldenrod;
+}
+.bgSvetla{
+    background-color: lightblue;
+}
+.bgSvetla .Sadrzaj{
+    color:rgb(0, 0, 0);
+    font-weight: bold;
+    
+}
+td{
+    text-align: center;
+    align-content: center;  
+    vertical-align: middle;  
+}
+td a{
+    color:white;
+    font-weight: 500;
+    text-decoration: none;
+    transition:color 0.4s ease-in-out;
+}
+
+td a:hover{
+    color:yellowgreen;
+}
+.Sekcija{
+    text-align: left;
+}
+.Sekcija a{
+    color:rgb(89, 159, 224) !important;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+@media screen and (max-width: 600px) {
+  
+    .sirina{
+        width: 100%;
+        overflow-x: scroll;
+        scrollbar-color: rgb(1, 30, 110) rgb(13, 102, 235);
+        scrollbar-width: thin;
+
+    }
+   
+
+    
+    
+}

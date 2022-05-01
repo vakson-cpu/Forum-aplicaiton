@@ -1,0 +1,39 @@
+.panel{
+    height:50px;
+    width: 100%;
+    background-image:url('../Screenshot_1.jpg');
+    position: relative;
+    z-index: 100;
+    margin-top: 40px;
+    border:1px solid white;
+    --bs-gutter-x:0 !important;
+    --bs-gutter-y:0 !important;
+}
+
+.box{
+
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1.1rem;
+
+}
+.widara{
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+.iconz{
+    cursor: pointer;
+    color:goldenrod;
+    transition:transform 0.7s ease-in-out ;
+}
+
+.iconz:hover{
+    color:rgb(235, 178, 35);
+    transform:scale(1.5,1.5);
+}

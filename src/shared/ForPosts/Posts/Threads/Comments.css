@@ -1,0 +1,38 @@
+.Comments--Area{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+
+
+
+}
+.Comment--Author{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    border: 5px ridge rgb(4, 52, 124);
+    background-color: rgba(0, 0, 0, 0.76);
+}
+
+.Comments{
+    background-color: white;
+    color:black;
+    width: 100%;    
+}
+
+.Author--Info{
+    color:white;
+    text-align: center;
+}
+
+.Author--Pic{
+    border-radius: 20px;
+    height: 70px;
+    width: 70px;
+    margin: auto;
+}
+/* .Comment--List{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+} */

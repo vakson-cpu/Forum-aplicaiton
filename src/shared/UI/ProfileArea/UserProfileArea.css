@@ -1,0 +1,109 @@
+.panel2{
+    background-color: white;
+    color:black;
+    z-index: 10;
+    width:100%;
+    position: relative;
+
+
+}
+
+
+
+.neki-text{
+        font-size:0.8rem;
+        text-align: center;
+        padding-right: 3px;
+}
+.marginas{
+    margin-right: 10px;
+}
+
+.slika{
+    width:50px;
+    height: 50px;
+  
+}
+.linkovi{
+    text-decoration: none;
+    color:rgb(107, 81, 14);    
+    transition:color 0.4s ease-out;
+}
+
+.linkovi.log-out{
+    position:absolute;
+    right:20px;
+    top:0;
+    color:blue;
+}
+.linkovi:hover{
+    color:black;
+
+}
+
+.redo{
+    --bs-gutter-x:0 !important;
+    --bs-gutter-y:0 !important;
+}
+.fas.icon{
+    font-size: 1.7rem;
+    color:rgb(3, 119, 104);
+    text-align: center;
+    margin-right:0;
+    padding-top:0;
+    padding-left: 10px;
+    cursor: pointer;
+    transition: color 0.4s ease-in;
+}
+
+.fas.icon:hover{
+    color:black;
+}
+
+.visible{
+opacity: 1s;
+}
+
+.flexGorwaj{
+    flex-grow: 0 !important;
+    padding: 0px;
+
+}
+
+.PrivateMessage-Flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+
+}
+
+@media only screen and (max-width: 600px) {
+    .visible{
+        display: none;
+    }
+    .panel2{
+        background-color: white;
+        color:black;
+        z-index: 10;
+        width:100%;
+        position: relative;
+    }
+
+    .PrivateMessage-Flex{
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content:start;
+        align-items:center;
+        
+    }
+    i{
+        font-size: 12px;
+    }
+    
+
+
+  }
+
+
+

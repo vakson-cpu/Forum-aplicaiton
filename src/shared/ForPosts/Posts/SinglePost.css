@@ -1,0 +1,54 @@
+.PostContainer {
+  background-color: rgb(0, 15, 37);
+  border: 1px solid rgb(51, 45, 47);
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  justify-content: space-between;
+  text-align: center;
+}
+.fas {
+  font-size: 33px;
+  margin-right: 15px;
+  padding: 5px;
+  color:rgb(206, 206, 206);
+}
+.UserInfo {
+  display: flex;
+  flex-direction: row;
+}
+.UserInfo--main {
+  display: block;
+  padding: 10px, 0px;
+  align-items: center;
+}
+.UserInfo p {
+  margin-bottom: 0px;
+}
+
+.UserInfo--text {
+  font-size: 0.7rem;
+  padding-top: 0;
+  color: grey;
+}
+.UserInfo--Link{
+  text-decoration: none;
+  color:rgb(116, 233, 62);
+}
+
+.invisible1 {
+    display: inline;
+}
+@media only screen and (max-width: 800px) {
+  .PostContainer {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+  }
+  .invisible1 {
+    display: none;
+  }
+}
