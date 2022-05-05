@@ -1,12 +1,11 @@
 import React, { useEffect,useState } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import Comments from "./Comments";
 import { getUsers } from "../../../../Redux/Reducers/UserSlices";
 import { getPosts } from "../../../../Redux/Reducers/Slices";
 import { Spinner } from "react-bootstrap";
-import { writeComment } from "../../../Axy/axiosFunctions";
 import "./ThreadInfo.css";
 
 const ThreadInfo = () => {
@@ -19,7 +18,6 @@ const ThreadInfo = () => {
   const postovi = useSelector((state) => state.threads.PostsByTid);
   const korisnici = useSelector((state) => state.users.Users);
   const [commentArea, setCommentArea] = useState("")
-  const [Semafor, setSemafor] = useState(false);
 
   if (postovi.length !== 0 && korisnici.length !== 0) {
     var Post = postovi.filter((t) => t._id === Pid);
@@ -28,12 +26,7 @@ const ThreadInfo = () => {
     var Lnk = User[0].image;
   }
 
-  async function handlePostComment(){
-  let authorID=localStorage.getItem('id');
-  let rezultat= await writeComment(authorID,commentArea,Pid);
-  console.log("Uspesno je odradjeno: ",rezultat);
-  setSemafor(!Semafor);
-  }
+
 
 
   const dispatch = useDispatch();
@@ -68,14 +61,12 @@ const ThreadInfo = () => {
           </div>
         </Container>
         <Container className="mt-5">
-          <Comments Semafor={Semafor} Pid={Pid} />
+          <Comments vrednost1={commentArea} Pid={Pid} />
 
         </Container>
         <Container className="mt-5">
           <div className="PostComment--Area">
-            <Button onClick={()=>handlePostComment()} className="Comment--Button" variant="outline-info">
-              Post Comment
-            </Button>{" "}
+
             <textarea value={commentArea} onChange={e=>setCommentArea(e.target.value)} className="CreateComment" rows="30"></textarea>
           </div>
         </Container>

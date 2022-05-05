@@ -31,6 +31,34 @@
     width: 70px;
     margin: auto;
 }
+.Small--Time{
+    font-size: 10px;
+    color:white;
+    text-align: center;
+}
+
+.Comment--Icon--Area
+{
+    color:white;
+    font-size: 15px;
+    display: flex;
+    justify-content: flex-end;
+    
+    
+}
+
+.fa-solid.fa-flag{
+    color:goldenrod;
+}
+.fa-solid.fa-reply{
+    color:greenyellow;
+}
+
+.fa-solid.fa-trash-can{
+    color:red;
+    cursor: pointer;
+        
+}
 /* .Comment--List{
     display: flex;
     justify-content: space-around;
