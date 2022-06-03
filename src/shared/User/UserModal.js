@@ -59,6 +59,7 @@ const UserModal = ({ regularClose,Close, open,korisnici }) => {
       console.log("AH")
     }
   };
+
   const loginHandler = async (e) => {
     e.preventDefault();
       try{

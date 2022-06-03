@@ -1,0 +1,9 @@
+.suggestions{
+    cursor:pointer;
+    background-color:lightcyan;
+
+}
+
+.suggestions:hover{
+    background-color: gray;
+}

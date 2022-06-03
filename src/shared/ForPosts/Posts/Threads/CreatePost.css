@@ -1,0 +1,25 @@
+.Custom--Form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color:white;
+    border: 20px outset rgb(1, 136, 129);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(27, 27, 27);
+    
+    
+}
+
+.PostThread--Button{
+    width: 50%;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .PostThread--Button{
+        width: 90%;
+    }
+    
+  }

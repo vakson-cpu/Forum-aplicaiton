@@ -1,14 +1,25 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import "./Comments.css";
-const SingleComment = ({handleDelete,PostID, name, description, date, image,authorID,CommentID }) => {
+const SingleComment = ({
+  handleDelete,
+  PostID,
+  name,
+  description,
+  date,
+  image,
+  authorID,
+  CommentID,
+  handleQuoteComment
+}) => {
   let datum = date.substring(0, 10);
   let vreme = date.substring(11, 19);
 
-  // const handleDeleteComment=()=>{
-//THE QUESTION IS IF I SHOULD REALLY DELETE THIS HERE, I WANT TO CAUSE STATE RENDERING, SHOULD I PASS IT AS PROP?
-//OR LEAVE IT LIKE THIS,THE QUESTION REMAINS.
-//I SUGGEST TO LEAVE IT LIKE THEES
-  // }
+  const logovan = useSelector((state) => state.users.isLoggedIn);
+  var id = "";
+  if (logovan) id = localStorage.getItem("id");
+
   return (
     <>
       <div className="Comments--Area">
@@ -25,11 +36,22 @@ const SingleComment = ({handleDelete,PostID, name, description, date, image,auth
           <p>{description}</p>
         </div>
       </div>
-      <div className='Comment--Icon--Area'>
-      <i  class="fa-solid fa-reply m-1 mx-3 "></i>
-      <i className="fa-solid fa-bullhorn m-1"></i>
-      <i class="fa-solid fa-pen m-1"></i>
-         <i onClick={()=>handleDelete(PostID,authorID,CommentID)} class="fa-solid fa-trash-can m-1"></i>     </div>
+      {id === authorID ? (
+        <div className="Comment--Icon--Area">
+          <i  onClick={()=>handleQuoteComment(description,name)} class="fa-solid fa-reply m-1 mx-3 "></i>
+          <i className="fa-solid fa-bullhorn m-1"></i>
+          <i class="fa-solid fa-pen m-1"></i>
+          <i
+            onClick={() => handleDelete(PostID, authorID, CommentID)}
+            class="fa-solid fa-trash-can m-1"
+          ></i>{" "}
+        </div>
+      ) : (
+        <div className="Comment--Icon--Area">
+          <i  onClick={()=>handleQuoteComment(description,name)} class="fa-solid fa-reply m-1 mx-3 "></i>
+          <i className="fa-solid fa-bullhorn m-1"></i>
+        </div>
+      )}
     </>
   );
 };

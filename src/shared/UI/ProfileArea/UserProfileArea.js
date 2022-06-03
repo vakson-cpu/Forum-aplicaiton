@@ -8,7 +8,7 @@ import "./animacija2.css";
 import { useSelector, useDispatch } from "react-redux";
 import { LogInuj, LogOut } from "../../../Redux/Reducers/UserSlices";
 import { getUserByID } from "../../Axy/axiosFunctions";
-import { getUsers } from "../../../Redux/Reducers/UserSlices";
+import { Link } from "react-router-dom";
 
 
 const UserProfileArea = () => {
@@ -18,13 +18,15 @@ const UserProfileArea = () => {
   const logovan = useSelector((state) => state.users.isLoggedIn);
   const korisnik = useSelector((state) => state.users.Users);
   const [imeKorisnika, setImeKorisnika] = useState("");
-
+  const [ID, setID] = useState('')
   async function Check() {
     if (localStorage.length > 0) {
       console.log("Ima nesto u ls");
       let id = localStorage.getItem("id");
       let pom = await getUserByID(id);
+      console.log(id);
       console.log(pom.user.name)
+      setID(id);
       setImeKorisnika(prev=>pom.user.name);
       Dispatch(LogInuj())
     }
@@ -32,7 +34,7 @@ const UserProfileArea = () => {
 
   useEffect(() => {
     Check()
-    Dispatch(getUsers())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imeKorisnika,open]);
 
 
@@ -69,9 +71,10 @@ const UserProfileArea = () => {
               <button onClick={(e) => Close(e)} className=" linkovi log-out">
                 {logovan ? "Log-Out" : "Log-in"}
               </button>
-              <CSSTransition nodeRef={inputElement} in={open} timeout={200} classNames="my-node">
+              <CSSTransition  in={open} timeout={200} classNames="my-node"> 
+              {/* //nodeRef={inputElement} */}
                 <UserModal
-                ref={inputElement}
+                // ref={inputElement}
                   Close={(e) => Close(e)}
                   open={open}
                   korisnici={korisnik}
@@ -83,14 +86,17 @@ const UserProfileArea = () => {
           <Row>
             <Col className="redo flexGrowaj">
               <div className="PrivateMessage-Flex   ">
+                <Link to={"/Messages/Inbox"}>
                 <i className="fas icon fa-envelope-open-text"></i>
+                </Link>
                 <a href="###" className="linkovi">
                   Inbox
                 </a>
-                <i className="fas icon fa-paper-plane "></i>
-                <a href="###" className="linkovi marginas">
+                <Link to={`/Messages/Send/${ID}`} >
+                <i className="fas icon fa-paper-plane "></i></Link>
+                <Link to={`/Messages/Send/${ID}`} className="linkovi marginas">
                   Send Private Messages
-                </a>
+                </Link>
               </div>
             </Col>
           </Row>

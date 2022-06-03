@@ -1,0 +1,23 @@
+.Message--Link--Colors{
+    text-decoration: none;
+    text-decoration-style: none;
+    color:black;
+    
+}
+
+.Padding{
+background-color: white;
+color:black;
+}
+
+
+.fa-solid.fa-trash
+{
+    color:red;
+    cursor: pointer;
+    transition:color 0.5s ease-in-out;
+}
+
+.fa-solid.fa-trash:hover{
+    color: rgb(130, 0, 0);
+}

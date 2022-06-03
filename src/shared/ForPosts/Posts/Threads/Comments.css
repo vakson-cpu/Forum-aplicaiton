@@ -52,6 +52,7 @@
 }
 .fa-solid.fa-reply{
     color:greenyellow;
+    cursor: pointer;
 }
 
 .fa-solid.fa-trash-can{
@@ -59,6 +60,12 @@
     cursor: pointer;
         
 }
+
+.fa-solid.fa-pen{
+color:goldenrod;
+cursor: pointer;
+}
+
 /* .Comment--List{
     display: flex;
     justify-content: space-around;

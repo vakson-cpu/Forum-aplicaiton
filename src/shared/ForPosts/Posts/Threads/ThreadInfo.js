@@ -28,7 +28,7 @@ const ThreadInfo = () => {
 
 
 
-
+  const handleCommentArea=(a)=>setCommentArea(a)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
@@ -61,7 +61,7 @@ const ThreadInfo = () => {
           </div>
         </Container>
         <Container className="mt-5">
-          <Comments vrednost1={commentArea} Pid={Pid} />
+          <Comments handleCommentArea={handleCommentArea} vrednost1={commentArea} Pid={Pid} />
 
         </Container>
         <Container className="mt-5">

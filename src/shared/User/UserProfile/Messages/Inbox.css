@@ -1,0 +1,13 @@
+.Message--Header{
+    display: flex;
+    flex-direction: row;
+}
+
+.MH--bg{
+    background-color: white;
+    padding:5px
+}
+
+.PM--Position{
+    float: right;
+}

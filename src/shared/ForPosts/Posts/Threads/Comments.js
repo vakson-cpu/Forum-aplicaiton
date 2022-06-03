@@ -10,7 +10,7 @@ import { getCommentsByPost } from "../../../Axy/axiosFunctions";
 import Paginacija from "./Paginacija";
 import { Button } from "react-bootstrap";
 
-const Comments = ({ Pid, Semafor, vrednost1 }) => {
+const Comments = ({ Pid, Semafor, vrednost1,handleCommentArea }) => {
   console.log("COMMENTS");
   console.log("INICIJALNI PAGE PRE PARSANJA JE: ", useParams().page);
   const Page = parseInt(useParams().page); //Id posta
@@ -45,6 +45,7 @@ const Comments = ({ Pid, Semafor, vrednost1 }) => {
       setCurrentPage(Page);
       setComments([]);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function paginate(number) {
@@ -69,6 +70,11 @@ const Comments = ({ Pid, Semafor, vrednost1 }) => {
     fechaj(Pid, Page - 1);
   }
 
+  function handleQuoteComment(description,author){
+    console.log(description)
+  let text=`"${author} je rekao:  ${description} "`;
+  handleCommentArea([...vrednost1,text]);
+  }
   if (loading === false)
     return (
       <>
@@ -84,6 +90,7 @@ const Comments = ({ Pid, Semafor, vrednost1 }) => {
               date={p.time}
               authorID={p.authorID}
               CommentID={p._id}
+              handleQuoteComment={handleQuoteComment}
             />
           ))}
         </div>

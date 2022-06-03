@@ -17,13 +17,13 @@ const SinglePost = ({
           <p className="UserInfo--text" >Posted by: {name}</p>
         </div>
       </div>
-      <div className="PostInfo invisible1">
-        <p>Number of Replies{replies}</p>
+      <div className="PostInfo invisible1 text-center ">
+        <p>Number of Replies: {replies}</p>
       </div>
 
-      <div className="latest invisible1">
+      <div className="latest invisible1 ">
         <p>{time}</p>
-        <p>Player xxx commented</p>
+        <p clasName='my-3'>Ebu Ramiz</p>
       </div>
     </div>
   );
