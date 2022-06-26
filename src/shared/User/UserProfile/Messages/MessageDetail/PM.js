@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { GetMessageByID } from "../../../../Axy/axiosFunctions";
+import { GetMessageByID, ReadMessage } from "../../../../Axy/axiosFunctions";
 //PM CE DA iMA TEXT PORUKE I DESCRIPTION
 const PM = () => {
   let MessageID = useParams().MessageID;
+  let TYPE = useParams().TYPE;
+
+  console.log("MESSAGEEE",MessageID);
+  console.log("TYPE",TYPE);
   const Users = useSelector((state) => state.users.Users);
 
   const [Message, setMessage] = useState({});
   const [name, setName] = useState("");
   const [Loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (TYPE === "INBOX") ReadMessage(MessageID);
+  }, []);
 
   useEffect(() => {
     async function Prikupi() {
       let pom = await GetMessageByID(MessageID);
       setMessage(pom);
       //Ovo more da fejla
-      console.log("Pretraga... ",pom.authorID);
+      console.log("Pretraga... ", pom.authorID);
       let pomUser = Users.filter((a) => a._id === pom.authorID);
       console.log("PomUserJe,", pomUser);
       setName(pomUser[0].name);

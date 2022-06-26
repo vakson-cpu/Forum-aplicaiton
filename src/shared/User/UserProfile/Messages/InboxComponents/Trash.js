@@ -22,6 +22,7 @@ const Trash = () => {
     setLoading(false);
     let rezultat = await getSentMessagesFromTrash(ID);
     console.log("Before rez je ", rezultat);
+    rezultat.reverse();
     setPoruke(rezultat);
     setLoading(true);
     console.log("after");

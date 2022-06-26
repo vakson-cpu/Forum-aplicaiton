@@ -16,3 +16,10 @@
     color:goldenrod;
     
 } */
+
+
+.zaPagin{
+    display: flex;
+    flex-wrap: wrap;
+
+}

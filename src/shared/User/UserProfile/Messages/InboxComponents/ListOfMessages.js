@@ -9,7 +9,6 @@ const ListOfMessages = () => {
   const logovan = useSelector((state) => state.users.isLoggedIn);
   const [ID, setID] = useState("");
   const [poruke, setPoruke] = useState([]);
-
   async function Recieve(ID) {
     let rezultat = await getRecievedMessages(ID);
     setPoruke(rezultat);
@@ -46,6 +45,7 @@ const ListOfMessages = () => {
               sendToTrash={sendToTrash}
               authorID={a.authorID}
               TrashCan={[]}
+              Read={a.read}
 
             />
           ))}

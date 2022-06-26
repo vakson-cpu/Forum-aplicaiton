@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { sendMailToTrash } from "../../../Axy/axiosFunctions";
+import {  ReadMessage, sendMailToTrash } from "../../../Axy/axiosFunctions";
 import "./SingleMessage.css";
 const SingleMessage = ({
   ID,
@@ -15,12 +15,14 @@ const SingleMessage = ({
   sendToTrash,
   recieverID,
   TrashCan,
+  Read
 }) => {
   // const [User, setUser] = useState({});
   const Users = useSelector((state) => state.users.Users);
   const logovan = useSelector((state) => state.users.isLoggedIn);
   const [User, setUser] = useState({});
   const isLoading = useSelector((state) => state.users.status);
+  // const [isRead , setIsRead  ] = useState(Read);
 
   var CurrTime = Date(date);
   let TheRealID = "";
@@ -31,9 +33,10 @@ const SingleMessage = ({
     if (TrashCan.includes(recieverID)) TheRealID = recieverID;
     else TheRealID = authorID;
   } else TheRealID = authorID;
-// Iz komponenti Sent i List saljemo koji je tip
-//iz Trasha kupimo info da li je poslata il jok...
-//Kada je brisanje u pitanju samo id logovonog trebamo slati
+  // Iz komponenti Sent i List saljemo koji je tip
+  //iz Trasha kupimo info da li je poslata il jok...
+  //Kada je brisanje u pitanju samo id logovonog trebamo slati
+
   function FilterHandler() {
     if (logovan && isLoading === "success") {
       // let ID = localStorage.getItem("id");
@@ -47,15 +50,20 @@ const SingleMessage = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logovan]);
 
+  console.log("READ JE ",Read)
   if (logovan) {
     return (
-      <div className="mx-2  px-0 text-black">
-        <Row className="border mx-0 px-0 Padding">
+      <div className={Read ? "mx-2  px-0 bg-secondary " :
+        "mx-2  px-0 text-black"}>
+        <Row className={Read ? "border mx-0 px-0 text-black bg-secondary" :  "border mx-0 px-0 Padding" }>
           <Col className="border text-center" xs={1}>
-            <i className="fa-solid fa-envelope "></i>
+            {Read ? <i class="fa-solid fa-envelope-open-text"></i> :<i className="fa-solid fa-envelope "></i>}
           </Col>
           <Col className="border" xs={4}>
-            <Link className="Message--Link--Colors"   to={`/Messages/Message/${MessageID}`}>
+            <Link
+              className="Message--Link--Colors"
+              to={`/Messages/Message/${MessageID}/${TYPE==="TRASH/INBOX"? "INBOX": "OTHER"}`}
+            >
               {title || "nema"}
             </Link>
           </Col>
@@ -66,7 +74,7 @@ const SingleMessage = ({
           <Col className="border text-center" xs={1}>
             {TYPE === "TRASH/INBOX" || "TRASH/SENT" ? (
               <i
-                onClick={() => sendToTrash(MessageID, ID)} 
+                onClick={() => sendToTrash(MessageID, ID)}
                 className="  fa-solid fa-trash"
               ></i>
             ) : (

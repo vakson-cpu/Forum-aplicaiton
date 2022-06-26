@@ -11,6 +11,13 @@ export const getUserByID = async (id) => {
   return kor;
 };
 
+export async function makeMod(userID) {
+  let rez = await axios
+    .put(`http://localhost:5000/Users/Moderate/${userID}`)
+    .then((req) => req.data)
+    .catch((err) => console.log(err));
+  console.log(rez);
+}
 //---------------------------------- COMMENT AREA
 export const writeComment = async (authorID, description, postID) => {
   let comment = await axios
@@ -25,6 +32,7 @@ export const writeComment = async (authorID, description, postID) => {
 
 export const getCommentsByPost = async (id, page) => {
   console.log(`Dobijena stranica je:${page}`);
+  if (+page < 0) page = 0;
   let kor = await axios
     .get(`http://localhost:5000/Comments/getComments/${id}?page=${page}`)
     .then((res) => {
@@ -51,7 +59,13 @@ export const deleteComments = async (postID, authorID, CommentID) => {
 
   return deletedComment;
 };
-
+export const editComment = async (commentID, Desc) => {
+  let rezultat = await axios
+    .put(`http://localhost:5000/Comments/Edit/${commentID}`, { newDesc: Desc })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return rezultat;
+};
 //--- PORUKE
 export async function getRecievedMessages(userID) {
   let rezultat = await axios
@@ -119,6 +133,7 @@ export async function SMTP(userName, authorID, description, title) {
     })
     .then((res) => res.data)
     .catch((err) => console.log("ERR", err));
+  console.log(rez);
   return rez;
 }
 
@@ -129,6 +144,14 @@ export async function GetMessageByID(MessageID) {
     .catch((err) => console.log(err));
   console.log("REZULTAT JE ", rez);
   return rez;
+}
+
+export async function ReadMessage(MessageID) {
+  let rez = await axios
+    .put(`http://localhost:5000/Messages/Message/Read/${MessageID}`)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+  return "Procitana porucica ";
 }
 
 //---Post
@@ -144,5 +167,90 @@ export async function MakePost(authorID, title, description, Tid, time) {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 
-  console.log("Uspesno Postavljeno: ",rez);
+  console.log("Uspesno Postavljeno: ", rez);
+}
+
+export async function viewPost(postID) {
+  let rez = await axios
+    .put(`http://localhost:5000/Threads/View/${postID}`)
+    .then((req) => req.data)
+    .catch((err) => console.log(err));
+  console.log(rez);
+}
+
+export async function reportComment(
+  title,
+  commentID,
+  description,
+  authorID,
+  pageNumber,
+  threadID
+) {
+  let result = await axios
+    .post(`http://localhost:5000/Report/reportComment/${commentID}`, {
+      title: title,
+      description: description,
+      authorID: authorID,
+      pageNumber: pageNumber,
+      postID: threadID,
+    })
+    .then((req) => req.data)
+    .catch((err) => console.log(err));
+  console.log(result);
+  return result;
+}
+
+export async function reportThread(
+  title,
+  postID,
+  description,
+  authorID,
+  pageNumber
+) {
+  let result = await axios
+    .post(`http://localhost:5000/Report/reportThread/${postID}`, {
+      title: title,
+      description: description,
+      authorID: authorID,
+      pageNumber: pageNumber,
+    })
+    .then((req) => req.data)
+    .catch((err) => console.log(err));
+  console.log(result);
+  return result;
+}
+
+export async function getReports() {
+  let result = await axios
+    .get("http://localhost:5000/Report/getReports")
+    .then((res) => res.data.reports)
+    .catch((err) => err);
+  console.log(result);
+  return result;
+}
+
+export async function getReportById(reportID) {
+  let result = await axios
+    .get(`http://localhost:5000/Report/getReport/${reportID}`)
+    .then((req) => req.data.report)
+    .catch((err) => console.log(err));
+  console.log("Dobijeni rezultat", result);
+  return result;
+}
+export async function changeUserBio(userID, bio) {
+  let result = await axios
+    .put(`http://localhost:5000/Users/User/ChangeBio/${userID}`, { Bio: bio })
+    .then((res) => res.data)
+    .catch((err) => err);
+  console.log(result);
+}
+
+export async function changeProfilePic(userID, image) {
+  const formData = new FormData();
+  formData.append("image", image);
+  let result = await axios
+    .put(`http://localhost:5000/Users/Profile/${userID}`, formData)
+    .then((res) => res.data.url)
+    .catch((err) => err);
+  return result;
 }

@@ -1,0 +1,14 @@
+.borderType {
+  border-bottom: 1px dashed goldenrod;
+}
+
+
+.GOTO{
+    text-decoration: none;
+    color:red;
+    transition: 0.5s color ease-in-out;
+}
+
+.GOTO:hover{
+  color:white;
+}

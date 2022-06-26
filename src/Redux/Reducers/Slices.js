@@ -11,7 +11,7 @@ export const getPosts = createAsyncThunk(
   }
 );
 export const getPostByTid = createAsyncThunk(
-  "Threads/GetPosts",
+  "Threads/GetPostsByTid",
   async (Tid) => {
     return await axios
       .get(`http://localhost:5000/Threads/GetBy/${Tid}`)
@@ -52,8 +52,9 @@ export const threadsSlice = createSlice({
   name: "threads",
   initialState: {
     Posts: [],
-    PostsByTid:[],
+    PostsByTid: [],
     status: null,
+    status4Tid:null,
   },
   reducers: {
     getInitial: (state) => {
@@ -71,15 +72,17 @@ export const threadsSlice = createSlice({
     [getPosts.pending]: (state, action) => {
       state.status = "loading";
     },
-    [getPosts.fulfilled]: (state, action) => {
-      state.status = "success";
-      state.Posts = action.payload;
-      console.log("Uspesno je primljen");
-    },
+
     [getPosts.rejected]: (state, action) => {
       state.status = "failed";
       console.log("Fejl je primljen");
       console.log(action.payload);
+    },
+    [getPosts.fulfilled]: (state, action) => {
+      state.status = "success";
+      state.Posts = action.payload;
+      console.log("GET POSTS");
+      console.log("STATE.POSTS:",state.Posts);
     },
     [postThreads.pending]: (state, action) => {
       state.status = "loading";
@@ -93,17 +96,16 @@ export const threadsSlice = createSlice({
       console.log("Fejl je primljen");
       console.log(action.payload);
     },
-    [getPostByTid.pending]:(state,action)=>{
-      state.status="loading"
+    [getPostByTid.pending]: (state, action) => {
+      state.status4Tid = "loading";
     },
-    [getPostByTid.rejected]:(state,action)=>{
-      state.status="failed"
+    [getPostByTid.rejected]: (state, action) => {
+      state.status4Tid = "failed";
     },
-    [getPostByTid.fulfilled]:(state,action)=>{
-      state.PostsByTid=action.payload
-      state.status="Success"
-    }
-
+    [getPostByTid.fulfilled]: (state, action) => {
+      state.PostsByTid = action.payload;
+      state.status4Tid = "Success";
+    },
   },
 });
 

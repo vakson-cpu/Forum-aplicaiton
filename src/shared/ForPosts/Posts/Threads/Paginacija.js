@@ -12,11 +12,12 @@ console.log("PAGINACIJA")
     for(let i=1;i<=Math.ceil(totalPosts/postsPerPAge);i++){
         pageNumbers.push(i)
     }
+    // if(pageNumbers.length>8)
 
   return (
     
     <nav>
-        <Pagination  >
+        <Pagination  size='xs' className='zaPagin' >
         {
             pageNumbers.map(number=>(
                 <Pagination.Item key={uuid()}  className='m-1 mt-3 '>

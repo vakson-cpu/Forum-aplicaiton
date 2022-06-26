@@ -66,6 +66,9 @@ color:goldenrod;
 cursor: pointer;
 }
 
+.fa-solid.fa-bullhorn{
+    cursor: pointer;
+}
 /* .Comment--List{
     display: flex;
     justify-content: space-around;

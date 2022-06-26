@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SingleComment from "./SingleComment";
 import "./Comments.css";
 import { Spinner } from "react-bootstrap";
 import uuid from "react-uuid";
-import { deleteComments, writeComment } from "../../../Axy/axiosFunctions";
+import {
+  deleteComments,
+  editComment,
+  writeComment,
+} from "../../../Axy/axiosFunctions";
 import { getCommentsByPost } from "../../../Axy/axiosFunctions";
 import Paginacija from "./Paginacija";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Comments = ({ Pid, Semafor, vrednost1,handleCommentArea }) => {
+const Comments = ({ Pid, Semafor, vrednost1, handleCommentArea }) => {
   console.log("COMMENTS");
   console.log("INICIJALNI PAGE PRE PARSANJA JE: ", useParams().page);
   const Page = parseInt(useParams().page); //Id posta
-
+  const Navigate = useNavigate();
   const Authors = useSelector((state) => state.users.Users); //
   const [Komentari, setComments] = useState([]);
   const [loading, setloading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(Page);
+  const [currentPage, setCurrentPage] = useState(Page || 1);
   const [Count, setCount] = useState(0);
+  const [Edit, setEdit] = useState(false);
+
   console.log("TRENUTNI Page JE: ", currentPage);
 
   async function handleDelete(postID, authorID, CommentID) {
@@ -28,24 +36,18 @@ const Comments = ({ Pid, Semafor, vrednost1,handleCommentArea }) => {
     setComments(Komentari.filter((a) => a._id !== rezultat._id));
   }
 
-  async function fechaj(Pid, currentPage) {
+  async function fechaj(Pid, Page) {
     setloading(true);
-    let a = await getCommentsByPost(Pid, currentPage);
+    setCurrentPage(Page);
+    let a = await getCommentsByPost(Pid, Page);
+    if (a.length === 0) return;
     setComments(a.Comment);
     setCount(a.Quantity);
-    console.log("KVANITITET JE:", Count);
     console.log(Komentari);
     setloading(false);
   }
   useEffect(() => {
-    // console.log("UseEffect, Tr str",currentPage-1);
-    setCurrentPage(Page);
     fechaj(Pid, currentPage - 1);
-    return () => {
-      setCurrentPage(Page);
-      setComments([]);
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function paginate(number) {
@@ -54,27 +56,53 @@ const Comments = ({ Pid, Semafor, vrednost1,handleCommentArea }) => {
     fechaj(Pid, number - 1);
   }
   function Filter(authorID, numb) {
-    console.log("AUTORI SU", Authors);
     let niz = Authors.filter((a) => a._id === authorID);
     if (numb === 1) return niz[0].image;
     else return niz[0].name;
   }
 
   async function handlePostComment() {
-    let authorID = localStorage.getItem("id");
-    let rezultat = await writeComment(authorID, vrednost1, Pid);
-    console.log("Uspesno je odradjeno: ", rezultat);
-    console.log("KOMENTARI SU: ", Komentari);
-    setComments([...Komentari, rezultat]);
-    if (Comment.length > 5) fechaj(Pid, Page);
-    fechaj(Pid, Page - 1);
+    setloading(true);
+    try {
+      let authorID = localStorage.getItem("id");
+      let rezultat = await writeComment(authorID, vrednost1, Pid);
+      console.log("Uspesno je odradjeno: ", rezultat);
+      console.log("KOMENTARI SU: ", Komentari);
+
+      let Broj = Math.ceil(Count / 5);
+      if (Komentari.length >= 5) {
+        Broj += 1;
+        setCurrentPage(Broj);
+      }
+      Navigate(`/threads/info/${Pid}/${Broj}`);
+      console.log("BR JE : ", Broj);
+      setCurrentPage(Broj);
+
+      fechaj(Pid, Broj - 1);
+      setComments([...Komentari, rezultat]);
+      setloading(false);
+      window.scrollTo(0, 0);
+
+      console.log("BROJ JE : ", Broj);
+    } catch (err) {
+      console.log(err);
+    }
+    console.log("redirecting...");
   }
 
-  function handleQuoteComment(description,author){
-    console.log(description)
-  let text=`"${author} je rekao:  ${description} "`;
-  handleCommentArea([...vrednost1,text]);
+  function handleQuoteComment(description, author) {
+    console.log(description);
+    let text = `"${author} je rekao:  ${description} "`;
+    handleCommentArea([...vrednost1, text]);
   }
+
+  async function handleCommentEdit(commentID, Desc) {
+    console.log(`Pristigli CommentID: ${commentID} a desc : ${Desc}` );
+    await editComment(commentID, Desc);
+    await fechaj(Pid,currentPage)
+    console.log("edited successfuly..");
+  }
+
   if (loading === false)
     return (
       <>
@@ -91,6 +119,8 @@ const Comments = ({ Pid, Semafor, vrednost1,handleCommentArea }) => {
               authorID={p.authorID}
               CommentID={p._id}
               handleQuoteComment={handleQuoteComment}
+              handleCommentEdit={handleCommentEdit}
+              currentPage={currentPage}
             />
           ))}
         </div>

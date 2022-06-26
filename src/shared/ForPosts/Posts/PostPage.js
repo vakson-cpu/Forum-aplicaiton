@@ -4,8 +4,6 @@ import { getUsers } from "../../../Redux/Reducers/UserSlices";
 import { Container, Button } from "react-bootstrap";
 import SinglePost from "./SinglePost";
 import "./PostPage.css";
-import ThreadModal from "./ThreadModal";
-import { CSSTransition } from "react-transition-group";
 import { getPostByTid } from "../../../Redux/Reducers/Slices";
 import "./animacija.css";
 import { Spinner } from "react-bootstrap";
@@ -21,10 +19,9 @@ const PostPage = ({ Pid }) => {
   };
   const postovi = useSelector((state) => state.threads.PostsByTid);
   const korisnici = useSelector((state) => state.users.Users);
-  const isLoading = useSelector((state) => state.threads.status);
+  const isLoading = useSelector((state) => state.threads.status4Tid);
   useEffect(() => {
     console.log("Pozvan je useEffect,rendering");
-    dispatch(getUsers());
     dispatch(getPostByTid(Pid));
   }, [dispatch]);
 
@@ -76,6 +73,7 @@ const PostPage = ({ Pid }) => {
                 title={D.title}
                 time={GetTheTime(D.time)}
                 replies={D.replies}
+                views={D.views}
                 //Meni fali sad ovde neko ime poslednjeg odgovora...
               />
             ))}

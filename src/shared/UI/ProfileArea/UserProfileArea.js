@@ -17,25 +17,31 @@ const UserProfileArea = () => {
   const Dispatch = useDispatch();
   const logovan = useSelector((state) => state.users.isLoggedIn);
   const korisnik = useSelector((state) => state.users.Users);
-  const [imeKorisnika, setImeKorisnika] = useState("");
+  const [User, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
   const [ID, setID] = useState('')
+  console.log("KORISNIK JE :",korisnik);
+
   async function Check() {
     if (localStorage.length > 0) {
+      setLoading(true);
+
       console.log("Ima nesto u ls");
       let id = localStorage.getItem("id");
       let pom = await getUserByID(id);
       console.log(id);
-      console.log(pom.user.name)
+      setUser(pom.user)
       setID(id);
-      setImeKorisnika(prev=>pom.user.name);
       Dispatch(LogInuj())
+      setLoading(false);
+
     }
   }
-
+  console.log(`http://localhost:5000/${korisnik.image}`);
   useEffect(() => {
     Check()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imeKorisnika,open]);
+  }, [logovan,open]);
 
 
   function Close(e) {
@@ -44,7 +50,7 @@ const UserProfileArea = () => {
     if (text === "Log-in") setOpen(!open);
     else {
       Dispatch(LogOut());
-      setImeKorisnika("");
+      setUser({});
       localStorage.clear();
     }
   }
@@ -55,16 +61,16 @@ const UserProfileArea = () => {
     <div className=" panel2">
       <Row className="w-100">
         <Col className=" flexGrowaj" xs={2}>
-          <img className="slika visible" src={slika} alt="" />
+          <img className="slika visible" src={loading===false ?`http://localhost:5000/${User.image}` : "as"} alt="" />
         </Col>
         <Col>
           <Row>
             <Col className="redo flexGrowaj">
               <div className="d-flex flex-row    justify-content-start ">
                 <p className="px-1-sm neki-text visible">Welcome Back: </p>
-                <a className=" neki-text" href="/#">
-                  {imeKorisnika}
-                </a>
+                <Link className=" neki-text" to="/UserInfo/Me">
+                  {User.name}
+                </Link>
                 <p className="px-2 neki-text visible">You Last Visited: </p>
                 <p className="neki-text visible">Today 11:19pm </p>
               </div>

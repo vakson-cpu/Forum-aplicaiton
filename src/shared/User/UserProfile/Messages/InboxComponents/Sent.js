@@ -20,6 +20,7 @@ const Sent = () => {
     setLoading(false);
     let rezultat = await getSentMessages(ID);
     console.log("Before rez je ", rezultat);
+    rezultat.reverse();
     setPoruke(rezultat);
     setLoading(true);
     console.log("after");
