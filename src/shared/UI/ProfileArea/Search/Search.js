@@ -8,26 +8,41 @@ const Search = () => {
   const [Tip, setTip] = useState(true);
   const [views, setViews] = useState(0);
   const [Title, setTitle] = useState("");
+  const [Reply, setReply] = useState(0);
   const [Asc, setAsc] = useState(true);
   const Users = useSelector((state) => state.users.Users);
+
   const Threads = useSelector((state) => state.threads.Posts);
-  const [Lista, setLista] = useState([])
+  const [Lista, setLista] = useState([]);
   const [search, setSearch] = useState(false);
 
-  
   const handleSearch = () => {
     let Niz = [];
+    let pomocni;
+    if(!Title && !Reply && !views){
+      setLista([])
+      
+      return;
+    }
     if (Title) {
+      if(!Reply)setReply(0);
       Niz = Threads.filter((a) => {
         const regex = new RegExp(`${Title}`, "gi");
-        return a.title.match(regex);
+        return a.title.match(regex) && a.replies >= Reply;
       });
       console.log(Niz);
       setSearch(true);
       setLista(Niz);
+    } else {
+      if (Reply) {
+        Niz = Threads.filter((a) => a.replies >= Reply);
+        console.log(Niz);
+        setSearch(true);
+        setLista(Niz);
+      }
     }
   };
-  
+
   return (
     <div className="text-white d-flex flex-column justify-content-center">
       <h3 className="text-white text-center">What are you searching?</h3>
@@ -52,6 +67,14 @@ const Search = () => {
               value={Title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Search for shit..."
+            ></input>
+            <label>Search by minimum post reply count:</label>
+            <input
+              className="mx-3 my-3 "
+              type="text"
+              value={Reply}
+              onChange={(e) => setReply(e.target.value)}
+              placeholder=""
             ></input>
             <label>Search by post view count:</label>
             <input
@@ -83,9 +106,9 @@ const Search = () => {
               ></input>
             </div>
 
-              <Button onClick={handleSearch} variant="outline-light">
-                Search
-              </Button>
+            <Button onClick={handleSearch} variant="outline-light">
+              Search
+            </Button>
           </div>
           {search && <SearchPageResult postovi={Lista} />}
         </div>

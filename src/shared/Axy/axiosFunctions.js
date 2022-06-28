@@ -155,6 +155,14 @@ export async function ReadMessage(MessageID) {
 }
 
 //---Post
+export async function getPostsByTableId(Tid) {
+  let Postovi =await axios
+    .get(`http://localhost:5000/Threads/GetBy/${Tid}`)
+    .then((res) => res.data.Posts)
+    .catch((err) => console.log("Greska......"));
+  console.log("Eto ga dobijeno ",Postovi);
+  return Postovi;
+}
 
 export async function MakePost(authorID, title, description, Tid, time) {
   let rez = await axios

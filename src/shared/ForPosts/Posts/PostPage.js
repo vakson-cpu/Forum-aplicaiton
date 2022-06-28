@@ -8,34 +8,43 @@ import { getPostByTid } from "../../../Redux/Reducers/Slices";
 import "./animacija.css";
 import { Spinner } from "react-bootstrap";
 import uuid from "react-uuid";
+import { getPostsByTableId } from "../../Axy/axiosFunctions";
 import { Link } from "react-router-dom";
 // import { PostThread } from "../../../Redux/Actions/PostThread";
 
 const PostPage = ({ Pid }) => {
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
   const onClose = () => {
     setOpen(false);
   };
-  const postovi = useSelector((state) => state.threads.PostsByTid);
+  // const postovi = useSelector((state) => state.threads.PostsByTid);
+  const [postovi, setPostovi] = useState([]);
   const korisnici = useSelector((state) => state.users.Users);
-  const isLoading = useSelector((state) => state.threads.status4Tid);
+
+  // const isLoading = useSelector((state) => state.threads.status4Tid);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     console.log("Pozvan je useEffect,rendering");
-    dispatch(getPostByTid(Pid));
-  }, [dispatch]);
+    async function helperfunc() {
+      let pom = await getPostsByTableId(Pid);
+      setPostovi(pom);
+      setIsLoading(true);
+      console.log("DOBIJENO JE ",pom);
+    }
+    if (isLoading===false) helperfunc();
+  }, [isLoading]);
 
-  function GetTheTime(time){
-  let newTime=time.slice(0,10)
-  return newTime;
+  function GetTheTime(time) {
+    let newTime = time.slice(0, 10);
+    return newTime;
   }
-  
+
   function Filtriraj(authorID) {
     let kor = korisnici.filter((a) => a._id === authorID);
     return kor[0].name;
   }
-  if (isLoading === "Success") {
-    if (postovi.length > 0)
+  if (isLoading) {
+    if (postovi.length>0 && korisnici.length >0)
       return (
         <>
           {/* <CSSTransition
@@ -62,7 +71,6 @@ const PostPage = ({ Pid }) => {
               <Button className="float-end mx-5 my-4" variant="outline-info">
                 CREATE POST
               </Button>
-
             </Link>
 
             {postovi.map((D) => (

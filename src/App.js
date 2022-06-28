@@ -25,7 +25,7 @@ import { Example } from "./shared/ForPosts/Posts/Threads/reportModal";
 import Reports from "./shared/User/UserProfile/Messages/Reports/Reports";
 import ReportDetails from "./shared/User/UserProfile/Messages/Reports/ReportDetails";
 import ImageUpload from "./FileUpload/ImageUpload";
-import {getPosts} from './Redux/Reducers/Slices'
+import { getPosts } from "./Redux/Reducers/Slices";
 import Search from "./shared/UI/ProfileArea/Search/Search";
 // import Proba from "./Proba";
 
@@ -34,11 +34,11 @@ const App = () => {
   const logovan = useSelector((state) => state.users.isLoggedIn);
 
   useEffect(() => {
-    dispatch(getPosts())
+    dispatch(getPosts());
+    dispatch(getUsers());
+
     if (localStorage.length > 0) {
       dispatch(LogInuj());
-      dispatch(getUsers());
-      
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logovan]);
@@ -61,12 +61,12 @@ const App = () => {
           <Route path="/Messages/Inbox" element={<Inbox />} />
           <Route path="/Messages/Message/:MessageID/:TYPE" element={<PM />} />
           <Route path="/CreatePost/:Tid" element={<CreatePost />} />
-          <Route path="/UserInfo/Me"  element={<UserProfileInfo/>} />
+          <Route path="/UserInfo/Me" element={<UserProfileInfo />} />
           <Route path="/Reports/getReports" element={<Reports />} />
           <Route path="/ReportInfo/:reportID" element={<ReportDetails />} />
-          <Route path="/Search"  element={<Search />}></Route>
+          <Route path="/Search" element={<Search />}></Route>
         </Routes>
-      
+
         <Footer />
         <Bottom />
       </Router>

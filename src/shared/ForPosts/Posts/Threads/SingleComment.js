@@ -41,7 +41,7 @@ const SingleComment = ({
       />
       <div className="Comments--Area">
         <div className="Comment--Author">
-          <img className="mt-3 Author--Pic" src={`http://localhost:5000/${image}`} alt="greska"></img>
+          <img className="mt-3 Author--Pic" src={`http://localhost:5000/${image}`} alt="No Pic"></img>
           <p className="Author--Info">{name}</p>
           <p className="Small--Time">
             {datum}

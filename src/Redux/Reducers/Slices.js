@@ -10,20 +10,20 @@ export const getPosts = createAsyncThunk(
     });
   }
 );
-export const getPostByTid = createAsyncThunk(
-  "Threads/GetPostsByTid",
-  async (Tid) => {
-    return await axios
-      .get(`http://localhost:5000/Threads/GetBy/${Tid}`)
-      .then((res) => {
-        return res.data.Posts;
-      })
-      .catch((err) => {
-        console.log("TID :", Tid);
-        console.log("GRESKA" + err);
-      });
-  }
-);
+// export const getPostByTid = createAsyncThunk(
+//   "Threads/GetPostsByTid",
+//   async (Tid) => {
+//     return await axios
+//       .get(`http://localhost:5000/Threads/GetBy/${Tid}`)
+//       .then((res) => {
+//         return res.data.Posts;
+//       })
+//       .catch((err) => {
+//         console.log("TID :", Tid);
+//         console.log("GRESKA" + err);
+//       });
+//   }
+// );
 
 export const postThreads = createAsyncThunk(
   "Threads/PostThreads",
@@ -96,16 +96,16 @@ export const threadsSlice = createSlice({
       console.log("Fejl je primljen");
       console.log(action.payload);
     },
-    [getPostByTid.pending]: (state, action) => {
-      state.status4Tid = "loading";
-    },
-    [getPostByTid.rejected]: (state, action) => {
-      state.status4Tid = "failed";
-    },
-    [getPostByTid.fulfilled]: (state, action) => {
-      state.PostsByTid = action.payload;
-      state.status4Tid = "Success";
-    },
+    // [getPostByTid.pending]: (state, action) => {
+    //   state.status4Tid = "loading";
+    // },
+    // [getPostByTid.rejected]: (state, action) => {
+    //   state.status4Tid = "failed";
+    // },
+    // [getPostByTid.fulfilled]: (state, action) => {
+    //   state.PostsByTid = action.payload;
+    //   state.status4Tid = "Success";
+    // },
   },
 });
 
